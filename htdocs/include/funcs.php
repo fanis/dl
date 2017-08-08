@@ -290,7 +290,7 @@ function anyOf()
 
 function not_empty(&$v)
 {
-  return isset($v) && !empty(trim($v));
+  return isset($v) && (trim($v) != false);
 }
 
 
