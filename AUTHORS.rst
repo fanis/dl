@@ -1,7 +1,7 @@
 Main program
 ------------
 
-| Copyright(c) 2007-2016 Yuri D'Elia <wavexx@thregr.org>
+| Copyright(c) 2007-2017 Yuri D'Elia <wavexx@thregr.org>
 | License: GNU GPL 2+ (see COPYING)
 
 Localization
@@ -29,12 +29,6 @@ Bundled code
   | Copyright(c) 2005 Nico Kaiser <nico@siriux.net>
   | License: GNU GPL 2+ (see COPYING)
   | https://launchpad.net/php-gettext/
-
-* PHPass:
-
-  | Written by Solar Designer <solar at openwall.com> in 2004-2006 and placed in
-    the public domain. Revised in subsequent years, still public domain.
-  | http://www.openwall.com/phpass/
 
 * iepngfix.htc:
 

@@ -27,7 +27,8 @@ if(!isset($gcInternal)) $gcInternal = true;
 if(!isset($gcLimit)) $gcLimit = 0;
 if(!isset($defTimezone)) $defTimezone = @date_default_timezone_get();
 if(!isset($dateFmtShort)) $dateFmtShort = "Y-m-d";
-if(!isset($dateFmtFull)) $dateFmtFull = "Y-m-d H:m:s T";
+if(!isset($dateFmtFull)) $dateFmtFull = "Y-m-d H:i:s T";
+if(!isset($emailSubjectPrefix)) $emailSubjectPrefix = "[dl] ";
 
 // default style
 if(!isset($style))
@@ -102,15 +103,15 @@ $defaults = array
 );
 
 // constants
-$dlVersion = "0.18";
+$dlVersion = "0.18.1";
 $schemaVersion = "0.18";
 $bannerUrl = 'https://www.thregr.org/~wavexx/software/dl/';
 $banner = '<a href="' . htmlentities($bannerUrl) . '">dl ticket service</a>'
-  . ' ' . htmlentities($dlVersion);
+	. ' ' . htmlentities($dlVersion);
 $cookieLifetime = 1000 * 60 * 60 * 24 * 90;
 $maxUUTries = 32;
 $tokenLenght = 32;
 
-// password hasher and complexity limits
+// password complexity limits
 $maxUserLen = 60;
 $maxPassLen = 72;

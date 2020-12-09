@@ -4,21 +4,20 @@ dl: download ticket service
 
 .. contents::
 
-dl is a file exchange service that allows you to upload any file to a web
-server and generate a unique ticket for others to download. The ticket is
-automatically expired according to the specified rules, so that you don't need
-to keep track or cleanup afterward. dl also allows you to grant an anonymous,
-one-time upload for others to send *you* a file, without the requirement of
-account management.
+"dl" is a simple file sharing service for quick/one-off file transfers. Upload
+a file to get a link you can share. Or create a sharing link to receive files
+from others. The uploaded files are automatically removed when left unused,
+requiring zero additional maintenance.
 
-dl is usually installed as a "email attachments replacement" due to its
-simplicity (though can be used in other ways).
+"dl" is *built for your users*: easy to use with any browser, integrates
+smoothly with Thunderbird for large attachments, works on Android, Windows
+and OSX or straight from the command line for maximum convenience.
 
 
 Requirements
 ============
 
-* PHP 5.3 or higher.
+* PHP 5.5 or higher.
 * PHP SQLite module (or another PDO database module).
 * PHP mbstring module.
 * PHP OpenSSL module.
@@ -113,11 +112,8 @@ SQLite, MySQL and PostgreSQL.
 PHP setup
 ---------
 
-The following parameters are *required* to be set in your ``php.ini`` (these
-values are defaults since PHP 5.0, but they might be different in your setup):
+The following parameters are *required* to be set in your ``php.ini``:
 
-* ``magic_quotes_gpc``: must be "Off".
-* ``magic_quotes_runtime``: must be "Off".
 * ``date.timezone``: must be set to your system preference.
 * ``session.auto_start``: must be "Off".
 
@@ -253,6 +249,9 @@ PHP Version   Upload limit
 >=5.6         no limit
 ============= ===================================
 
+Note that PHP versions before 5.5 are no longer supported, and older versions
+are shown here for reference purposes only.
+
 Finally, not all browsers support large file uploads:
 
 ============= ============
@@ -303,7 +302,6 @@ With external authentication::
       AuthType Basic
       AuthName "Restricted Area"
       Require valid-user
-      Satisfy any
 
       # You'll need to provide a valid source for passwords using either the
       # following or some other authentication source (such as LDAP)
@@ -327,7 +325,6 @@ With LDAP or ActiveDirectory authentication::
       AuthType Basic
       AuthName "Restricted Area"
       Require valid-user
-      Satisfy any
 
       # Use the LDAP provider (just an example query)
       AuthBasicProvider ldap
@@ -584,6 +581,7 @@ default stored in ``~/.dl.rc``, containing the following values:
 * passcmd (optional): invoke the supplied command to obtain the password
 * verify (optional): "true" or "false": enable/disable SSL verification
   (might be required for testing, but defaults to true)
+* email (optional): default email address for grant notifications
 * fingerprint: Validate the server against the specified certificate or
   fingerprint (See `Public key pinning`_).
 
@@ -684,7 +682,7 @@ General/support mailing list
   subscribe to `dl-ticket-service` by either sending an empty email to
   <dl-ticket-service+subscribe@thregr.org> or by using GMane_ (group
   "gmane.comp.web.dl-ticket-service.general"). The archives are accessible via
-  web through http://news.gmane.org/gmane.comp.web.dl-ticket-service.general or
+  web through https://www.mail-archive.com/dl-ticket-service@thregr.org/ or
   via news directly.
 
 <dl-announces@thregr.org>:
@@ -697,7 +695,7 @@ General/support mailing list
 You can contact the main author directly at <wavexx@thregr.org>, though using
 the general list is encouraged.
 
-.. _GMane: http://www.gmane.org/
+.. _GMane: https://news.gmane.io/
 
 
 Customisation and development
@@ -709,7 +707,7 @@ accessible at:
 
   https://github.com/DownloadTicketService/dl
 
-or at git://src.thregr.org/dl
+or at ``git://src.thregr.org/dl``
 
 
 Development releases
@@ -740,8 +738,8 @@ Authors and Copyright
 
 "dl" can be found at https://www.thregr.org/~wavexx/software/dl/
 
-| "dl" is distributed under GNU GPL 2, WITHOUT ANY WARRANTY.
-| Copyright(c) 2007-2016 by Yuri D'Elia <wavexx@thregr.org>.
+| "dl" is distributed under GNU GPLv2+, WITHOUT ANY WARRANTY.
+| Copyright(c) 2007-2017 by Yuri D'Elia <wavexx@thregr.org>.
 
 dl's GIT repository is publicly accessible at:
 

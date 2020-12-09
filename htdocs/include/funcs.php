@@ -308,12 +308,12 @@ function check_token()
 
 function tokenUrl($url, $params = array())
 {
-  $url .= '?token=' . urlencode($_SESSION['token']);
+  $url .= '?token=' . rawurlencode($_SESSION['token']);
   foreach($params as $k => $v)
   {
-    $url .= '&' . urlencode($k);
+    $url .= '&' . rawurlencode($k);
     if(!is_null($v))
-      $url .= '=' . urlencode($v);
+      $url .= '=' . rawurlencode($v);
   }
   return $url;
 }
@@ -580,5 +580,15 @@ function withUpload($FILES, $func, $params)
     if($ret === false)
       unlink($upload['path']);
   }
+  return $ret;
+}
+
+
+function hashPassword($pass)
+{
+  // for compatibility with pass_ph (PasswordHash), we enforce PASSWORD_BCRYPT
+  $ret = password_hash($pass, PASSWORD_BCRYPT);
+  if($ret === false)
+    throw new Exception("password_hash failure");
   return $ret;
 }

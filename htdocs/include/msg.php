@@ -3,7 +3,9 @@
 
 function msgTicketCreate($DATA, &$subject, &$body)
 {
-  $subject = sprintf(T_("[dl] download link to %s"), $DATA['name']);
+  global $emailSubjectPrefix;
+  $subject = $emailSubjectPrefix . sprintf(T_("download link to %s"), $DATA['name']);
+  $body = "";
   if(!empty($DATA['cmt']))
     $body .= T_("Ticket comment:") . " " . $DATA['cmt'] . ".\n\n";
   $body .= T_("URL:") . " " . ticketUrl($DATA) . "\n";
@@ -14,34 +16,36 @@ function msgTicketCreate($DATA, &$subject, &$body)
 
 function msgTicketDownload($DATA, &$subject, &$body)
 {
-  global $masterPath;
-  $subject = sprintf(T_("[dl] ticket %s download notification"), ticketStr($DATA));
+  global $masterPath, $emailSubjectPrefix;
+  $subject = $emailSubjectPrefix . sprintf(T_("ticket %s download notification"), ticketStr($DATA));
   $body = sprintf(T_("The ticket %s was downloaded by %s from %s"),
-      ticketStr($DATA), $_SERVER["REMOTE_ADDR"], $masterPath);
+		  ticketStr($DATA), $_SERVER["REMOTE_ADDR"], $masterPath);
 }
 
 
 function msgTicketPurge($DATA, &$subject, &$body)
 {
-  global $masterPath;
-  $subject = sprintf(T_("[dl] ticket %s purge notification"), ticketStr($DATA));
+  global $masterPath, $emailSubjectPrefix;
+  $subject = $emailSubjectPrefix . sprintf(T_("ticket %s purge notification"), ticketStr($DATA));
   $body = sprintf(T_("The ticket %s was purged manually after %d downloads from %s"),
-      ticketStr($DATA), $DATA["downloads"], $masterPath);
+		  ticketStr($DATA), $DATA["downloads"], $masterPath);
 }
 
 
 function msgTicketExpire($DATA, &$subject, &$body)
 {
-  global $masterPath;
-  $subject = sprintf(T_("[dl] ticket %s purge notification"), ticketStr($DATA));
+  global $masterPath, $emailSubjectPrefix;
+  $subject = $emailSubjectPrefix . sprintf(T_("ticket %s purge notification"), ticketStr($DATA));
   $body = sprintf(T_("The ticket %s expired automatically after %d downloads from %s"),
-      ticketStr($DATA), $DATA["downloads"], $masterPath);
+		  ticketStr($DATA), $DATA["downloads"], $masterPath);
 }
 
 
 function msgGrantCreate($DATA, &$subject, &$body)
 {
-  $subject = T_("[dl] upload grant link");
+  global $emailSubjectPrefix;
+  $subject = $emailSubjectPrefix . T_("upload grant link");
+  $body = "";
   if(!empty($DATA['cmt']))
     $body .= T_("Grant comment:") . " " . $DATA['cmt'] . ".\n\n";
   $body .= T_("URL:") . " " . grantUrl($DATA) . "\n";
@@ -52,26 +56,26 @@ function msgGrantCreate($DATA, &$subject, &$body)
 
 function msgGrantPurge($DATA, &$subject, &$body)
 {
-  global $masterPath;
-  $subject = sprintf(T_("[dl] grant %s purge notification"), grantStr($DATA));
+  global $masterPath, $emailSubjectPrefix;
+  $subject = $emailSubjectPrefix . sprintf(T_("grant %s purge notification"), grantStr($DATA));
   $body = sprintf(T_("The grant %s was purged manually from %s"), grantStr($DATA), $masterPath);
 }
 
 
 function msgGrantExpire($DATA, &$subject, &$body)
 {
-  global $masterPath;
-  $subject = sprintf(T_("[dl] grant %s purge notification"), grantStr($DATA));
+  global $masterPath, $emailSubjectPrefix;
+  $subject = $emailSubjectPrefix . sprintf(T_("grant %s purge notification"), grantStr($DATA));
   $body = sprintf(T_("The grant %s expired automatically from %s"), grantStr($DATA), $masterPath);
 }
 
 
 function msgGrantUse($GRANT, $TICKET, &$subject, &$body)
 {
-  global $dateFmtShort;
-  $subject = sprintf(T_("[dl] download link for grant %s"), grantStr($GRANT));
+  global $dateFmtShort, $emailSubjectPrefix;
+  $subject = $emailSubjectPrefix . sprintf(T_("download link for grant %s"), grantStr($GRANT));
   $body = sprintf(T_("Your grant %s has been used on %s by %s."),
-		  grantStr($GRANT), date($dateFmtShort, $GRANT["time"]),
+		  grantStr($GRANT), date($dateFmtShort, $GRANT["last_stamp"]),
 		  $_SERVER["REMOTE_ADDR"]) . "\n";
   if(!empty($GRANT['cmt']))
     $body .= T_("Grant comment:") . " " . $GRANT['cmt'] . ".\n\n";
